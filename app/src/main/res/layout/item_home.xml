@@ -1,0 +1,37 @@
+<!-- item_home.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/imgSP"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:contentDescription="Shoe Image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icongiay" />
+
+    <TextView
+        android:id="@+id/tenSP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giày Nike Air Force 1"
+        android:textSize="14sp"
+        android:paddingTop="8dp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/giaSP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$50.56"
+        android:textColor="#FF5733"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tvid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

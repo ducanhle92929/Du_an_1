@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/tvOrderId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mã đơn hàng: "
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvOrderDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngày đặt: "
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trạng thái:  "
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tvTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tổng tiền: "
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/txtOder"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:text="Chi tiết đơn hàng"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:backgroundTint="#000"
+        android:background="@drawable/button_background"
+        android:textColor="#FFF"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

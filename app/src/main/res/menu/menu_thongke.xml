@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/tkthang"
+        android:title="Doanh Thu Theo Tháng "
+        app:showAsAction="collapseActionView"/>
+    <item android:id="@+id/tkSpBanChay"
+        android:title="Sản phẩm Bán chạy "
+        app:showAsAction="collapseActionView"/>
+    <item android:id="@+id/tkTheoNgay"
+        android:title="  Doanh thu theo ngày "
+        app:showAsAction="collapseActionView"/>
+
+</menu>

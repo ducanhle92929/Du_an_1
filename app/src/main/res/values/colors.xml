@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="wh">#EFEFEF</color>
+    <color name="blue_default">#03A9F4</color> <!-- Thêm màu tùy chỉnh cho nút -->
+    <color name="blue_pressed">#0288D1</color> <!-- Màu khi nhấn cho nút -->
+    <color name="gray">#F44336</color> <!-- Màu khi nhấn cho nút -->
+    <color name="red">#F44336</color> <!-- Màu khi nhấn cho nút -->
+        <color name="colorDefault">#000000</color> <!-- Màu mặc định -->
+    <color name="colorSelected">#FF4081</color> <!-- Màu khi chọn -->
+    <color name="colorUnselected">#9E9E9E</color>
+    <color name="home_background">#FFFFFF</color> <!-- Màu nền cho Home -->
+    <color name="dashboard_background">#F0F0F0</color> <!-- Màu nền cho Cart -->
+    <color name="notification_background">#E0E0E0</color> <!-- Màu nền cho Order -->
+    <color name="profile_background">#D0D0D0</color> <!-- Màu nền cho Profile -->
+
+
+</resources>
