@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_background"
+    android:padding="24dp"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/success_image"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/iconyou"
+        android:contentDescription="Success Image" />
+
+    <TextView
+        android:id="@+id/congratulations_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/success_image"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+            android:text="Congratulations 🎉"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#009688" />
+
+    <!-- Subtitle Text -->
+    <TextView
+        android:id="@+id/subtitle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/congratulations_text"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:text="Your account is ready to use"
+        android:textSize="16sp"
+        android:textColor="#666666" />
+
+    <!-- Back to Home Button -->
+    <TextView
+        android:id="@+id/back_to_home_button"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/subtitle_text"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:background="@drawable/btn_background"
+        android:text="Back to Home"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</RelativeLayout>

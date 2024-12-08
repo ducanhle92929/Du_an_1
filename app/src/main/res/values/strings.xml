@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Duan1</string>
+    <string name="send_message"><u>GỬI TIN NHẮN.</u></string>
+    <string name="send_messages"><u>CÂU HỎI THƯỜNG GẶP &amp; TRỢ GIÚP.</u></string>
+    <string name="default_web_client_id">your-web-client-id-from-firebase</string>
+
+</resources>
