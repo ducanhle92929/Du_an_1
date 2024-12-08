@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F6FF">
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="16dp">-->
+
+<!--        &lt;!&ndash; Back and More Icons &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="space-between">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/baseline_keyboard_arrow_left_24" />-->
+
+<!--            <ImageView-->
+
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/ic_more_vert" />-->
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash; Profile Picture and Name &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginTop="24dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/profile_image"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:src="@drawable/ic_profile_placeholder"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:background="@drawable/rounded_background_circle"-->
+<!--                android:layout_gravity="center" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/profile_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="John Smith"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="#000000"-->
+<!--                android:layout_marginTop="8dp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/profile_phone"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="+8765 4532 543"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="#666666"-->
+<!--                android:layout_marginTop="4dp" />-->
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash; Profile Options &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@drawable/rounded_background"-->
+<!--            android:padding="16dp"-->
+<!--            android:layout_marginTop="24dp">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="My Profile"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="#000000"-->
+<!--                android:layout_marginBottom="16dp" />-->
+
+<!--            &lt;!&ndash; Option 1 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingVertical="12dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:clickable="true"-->
+<!--                android:background="?attr/selectableItemBackground">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_appointments"-->
+<!--                    android:tint="#6200EE" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="My Appointments"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textColor="#000000" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_arrow_forward"-->
+<!--                    app:tint="#666666" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; Option 2 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingVertical="12dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:clickable="true"-->
+<!--                android:background="?attr/selectableItemBackground">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_refund"-->
+<!--                    android:tint="#6200EE" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Refund History"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textColor="#000000" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_arrow_forward"-->
+<!--                    android:tint="#666666" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; Option 3 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingVertical="12dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:clickable="true"-->
+<!--                android:background="?attr/selectableItemBackground">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_password"-->
+<!--                    android:tint="#6200EE" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Change Password"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textColor="#000000" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_arrow_forward"-->
+<!--                    android:tint="#666666" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; Option 4 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingVertical="12dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:clickable="true"-->
+<!--                android:background="?attr/selectableItemBackground">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_invite"-->
+<!--                    android:tint="#6200EE" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Invite Friends"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textColor="#000000" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_arrow_forward"-->
+<!--                    android:tint="#666666" />-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+</ScrollView>

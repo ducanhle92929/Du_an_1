@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@android:color/white"
+    android:layout_marginBottom="8dp">
+
+    <!-- Hình ảnh sản phẩm -->
+    <ImageView
+        android:id="@+id/imgSP"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:contentDescription="Shoe Image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icongiay" />
+
+    <!-- Tên sản phẩm -->
+    <TextView
+        android:id="@+id/tenSP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giày Nike Air Force 1"
+        android:textSize="14sp"
+        android:paddingTop="8dp"
+        android:textColor="#000000"
+        android:layout_marginTop="8dp" />
+
+    <!-- Giá sản phẩm -->
+    <TextView
+        android:id="@+id/giaSP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$50.56"
+        android:textColor="#FF5733"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- ID sản phẩm (ẩn đi nếu không cần thiết) -->
+    <TextView
+        android:id="@+id/tvid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>

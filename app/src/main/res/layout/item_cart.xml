@@ -1,0 +1,125 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="@drawable/rounded_edit_text"
+    android:gravity="center_vertical">
+
+    <!-- Hình ảnh sản phẩm -->
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/icongiay"
+        android:layout_marginEnd="8dp" />
+
+    <!-- Thông tin sản phẩm -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/tvSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Size: 39"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$50.56"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <TextView
+            android:id="@+id/tvusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Người dùng: user"
+            android:textSize="14sp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tvProductid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mã sản phẩm: id"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- Chức năng thêm/bớt/xóa sản phẩm -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp">
+
+        <!-- Nút Xóa -->
+        <ImageButton
+            android:id="@+id/btnRemove"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/item_delete"
+            android:layout_gravity="end"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Bố cục cho nút + và - -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/rounded_group_with_shadow"
+            android:layout_marginTop="8dp">
+
+            <!-- Nút Giảm -->
+            <ImageButton
+                android:id="@+id/btnDecrease"
+                android:layout_width="25dp"
+                android:layout_height="32dp"
+                android:src="@drawable/item_add"
+                android:background="?attr/selectableItemBackground"
+                android:layout_marginEnd="4dp" />
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginHorizontal="8dp" />
+
+            <!-- Nút Tăng -->
+            <ImageButton
+                android:id="@+id/btnIncrease"
+                android:layout_width="20dp"
+                android:layout_height="32dp"
+                android:src="@drawable/item_remove"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="centerInside" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
