@@ -134,12 +134,14 @@ public class ThongKe_Activyti extends AppCompatActivity {
         // Inflate menu từ tệp menu_thongke.xml vào menu
         inflater.inflate(R.menu.menu_thongke, menu);
         return true; // Trả về true để menu được hiển thị
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.tkthang) { // Kiểm tra id có khớp với R.id.tkthang hay không
+        if (id == R.id.tkthang) { // Kiểm tra id có khớhp với R.id.tkthang hay không
             getTkThang();
             return true;
         }
