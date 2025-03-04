@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,11 +75,15 @@ public class QuanLySanPhamAdmin extends AppCompatActivity {
                 startActivity(new Intent(QuanLySanPhamAdmin.this, ThongKe_Activyti.class));
                 return true;
             }
-//    else if (itemId == R.id.navigation_notification) {
-//        // Mở thông báo
-//        startActivity(new Intent(QuanLySanPhamAdmin.this, NotificationActivity.class));
-//        return true;
-//    }
+    else if (itemId == R.id.navigation_notification) {
+        // Mở thông báo
+        startActivity(new Intent(QuanLySanPhamAdmin.this, NotificationActivity.class));
+        return true;
+    }else if (itemId == R.id.navigation_notification1) {
+                // Mở thông báo
+                startActivity(new Intent(QuanLySanPhamAdmin.this, CaNhanadmin.class));
+                return true;
+            }
             return false;
         });
     }

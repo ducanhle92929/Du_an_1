@@ -9,7 +9,11 @@
         android:icon="@drawable/icon_thongke"
         android:title=""/>
     <item
-        android:id="@+id/navigation_notificatio"
+        android:id="@+id/navigation_notification"
         android:icon="@drawable/checklist"
+        android:title=""/>
+    <item
+        android:id="@+id/navigation_notification1"
+        android:icon="@drawable/_538346433"
         android:title=""/>
 </menu>

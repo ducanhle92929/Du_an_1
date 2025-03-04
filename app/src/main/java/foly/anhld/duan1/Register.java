@@ -78,12 +78,16 @@ public class Register extends AppCompatActivity {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        // Kiểm tra nếu tên người dùng rỗng
         if (username.isEmpty()) {
             usernameEditText.setError("Vui lòng nhập tên người dùng");
             usernameEditText.requestFocus(); // Đặt con trỏ vào ô nhập liệu
             return;
+        } else if (username.length() < 6) {
+            usernameEditText.setError("Tên người dùng phải có ít nhất 6 ký tự");
+            usernameEditText.requestFocus();
+            return;
         }
+
 
 
         // Kiểm tra nếu email rỗng hoặc không hợp lệ
@@ -91,7 +95,10 @@ public class Register extends AppCompatActivity {
             emailEditText.setError("Vui lòng nhập email");
             emailEditText.requestFocus();
             return;
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+
+        }
+
+        else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEditText.setError("Email không hợp lệ");
             emailEditText.requestFocus();
             return;
@@ -102,7 +109,7 @@ public class Register extends AppCompatActivity {
             passwordEditText.setError("Vui lòng nhập mật khẩu");
             passwordEditText.requestFocus();
             return;
-        } else if (password.length() < 6) {
+        } else if (password.length() < 6 ) {
             passwordEditText.setError("Mật khẩu phải có ít nhất 6 ký tự");
             passwordEditText.requestFocus();
             return;

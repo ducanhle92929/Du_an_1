@@ -2,131 +2,120 @@ package foly.anhld.duan1;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.LayoutInflater;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
-
 import android.util.Log;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import foly.anhld.duan1.adater.ProductAdapter;
 
 public class OrderDetailActivityUser extends AppCompatActivity {
-
+    Button btnCancelOrder;
     private TextView orderStatus;
     private TextView orderTotal;
     private FirebaseFirestore db;
     private ImageView ivBack;
+    private RecyclerView rvProducts;
+    private ProductAdapter productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_don_hang_user);
 
-        // Initialize Firestore and UI components
+        btnCancelOrder = findViewById(R.id.btnCancelOrder);
         db = FirebaseFirestore.getInstance();
         orderStatus = findViewById(R.id.tvOrderStatususer);
-        orderTotal = findViewById(R.id.tvFinalPrice);  // Corrected the reference here
+        orderTotal = findViewById(R.id.tvFinalPrice);
         ivBack = findViewById(R.id.ivBack);
+        rvProducts = findViewById(R.id.rvProducts);
 
-        // Load order details
-        String orderId = getIntent().getStringExtra("ORDER_ID"); // Get the order ID from the intent
+        // Initialize RecyclerView with layout manager
+        rvProducts.setLayoutManager(new LinearLayoutManager(this));
+        productAdapter = new ProductAdapter(new ArrayList<>());
+        rvProducts.setAdapter(productAdapter);
+
+        String orderId = getIntent().getStringExtra("ORDER_ID");
         if (orderId != null) {
-            loadOrderDetails(orderId);  // If orderId is not null, load the order details
+            Log.d("OrderDetailActivity", "Received ORDER_ID: " + orderId);
+            loadOrderDetails(orderId);
         } else {
-            Log.e("OrderDetailActivity", "Order ID is null.");
+            Log.e("OrderDetailActivity", "ORDER_ID is null.");
         }
 
         ivBack.setOnClickListener(view -> {
-            // When back button is clicked, go back to OrderActivity
             Intent intent = new Intent(OrderDetailActivityUser.this, OrderActivity.class);
             startActivity(intent);
             finish();
+        });
+
+        btnCancelOrder.setOnClickListener(view -> {
+            String currentStatus = orderStatus.getText().toString();
+            if ("Pending".equalsIgnoreCase(currentStatus)) {
+                showCancelOrderDialog(orderId);
+            } else if ("Transit".equalsIgnoreCase(currentStatus)) {
+                showCannotCancelDialog();
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("Không thể hủy đơn hàng")
+                        .setMessage("Trạng thái đơn hàng không hợp lệ để hủy.")
+                        .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
         });
     }
 
     private void loadOrderDetails(String orderId) {
         db.collection("orders")
-                .document(orderId) // Get the document corresponding to the orderId
+                .document(orderId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        // Log order data for debugging
-                        Log.d("OrderDetailActivity", "Order document found.");
-
-                        // Retrieve order details from Firestore
                         String status = documentSnapshot.getString("status");
-                        Double total = documentSnapshot.getDouble("total");
+                        Double total = documentSnapshot.getDouble("totalPrice");
                         String orderDate = documentSnapshot.getString("orderDate");
-                        List<Map<String, Object>> products = (List<Map<String, Object>>) documentSnapshot.get("products");
+                        String orderIdString = documentSnapshot.getString("orderId");
+                        String recipientName = documentSnapshot.getString("recipientName");
+                        String phoneNumber = documentSnapshot.getString("phoneNumber");
+                        String address = documentSnapshot.getString("address");
+                        List<Map<String, Object>> products = (List<Map<String, Object>>) documentSnapshot.get("cartItems");
 
-                        // Log the retrieved values for debugging
-                        Log.d("OrderDetailActivity", "Order Status: " + status);
-                        Log.d("OrderDetailActivity", "Total Price: " + total);
-                        Log.d("OrderDetailActivity", "Order Date: " + orderDate);
-                        Log.d("OrderDetailActivity", "Number of Products: " + (products != null ? products.size() : 0));
-
-                        // Set the order status
                         orderStatus.setText(status != null ? status : "Status unavailable");
-
-                        // Set the total price
                         orderTotal.setText(total != null ? String.format("Total: %.2f", total) : "Total unavailable");
 
-                        // Set order date
+                        TextView orderIdTextView = findViewById(R.id.tvOrderIduser);
+                        TextView recipientNameTextView = findViewById(R.id.tvReceiverName);
+                        TextView phoneNumberTextView = findViewById(R.id.tvReceiverPhone);
+                        TextView addressTextView = findViewById(R.id.tvReceiverAddress);
                         TextView orderDateTextView = findViewById(R.id.tvOrderDateuser);
+
+                        orderIdTextView.setText(orderIdString != null ? "Order ID: " + orderIdString : "Order ID unavailable");
+                        recipientNameTextView.setText(recipientName != null ? "Recipient: " + recipientName : "Recipient unavailable");
+                        phoneNumberTextView.setText(phoneNumber != null ? "Phone: " + phoneNumber : "Phone unavailable");
+                        addressTextView.setText(address != null ? "Address: " + address : "Address unavailable");
                         orderDateTextView.setText(orderDate != null ? "Order Date: " + orderDate : "Order Date unavailable");
 
-                        // Display products
-                        RelativeLayout productsLayout = findViewById(R.id.productsLayout);
-                        productsLayout.removeAllViews(); // Clear any old products first
-
                         if (products != null) {
-                            // Loop through products list and display each product in the layout
-                            for (Map<String, Object> product : products) {
-                                String productName = (String) product.get("productName");
-                                Long quantity = (Long) product.get("quantity");
-                                Double price = (Double) product.get("price");
-                                String size = (String) product.get("size");
-                                String productId = (String) product.get("productId");
-                                String imageUrl = (String) product.get("imageUrl");
-
-                                // Log product details for debugging
-                                Log.d("OrderDetailActivity", "Product: " + productName);
-                                Log.d("OrderDetailActivity", "Quantity: " + quantity);
-                                Log.d("OrderDetailActivity", "Price: " + price);
-                                Log.d("OrderDetailActivity", "Size: " + size);
-                                Log.d("OrderDetailActivity", "Product ID: " + productId);
-                                Log.d("OrderDetailActivity", "Image URL: " + imageUrl);
-
-                                // Inflate a layout for each product (you can use a custom layout for products)
-                                View productView = LayoutInflater.from(this).inflate(R.layout.item_product_order_user, productsLayout, false);
-
-                                // Set product details
-                                TextView productNameView = productView.findViewById(R.id.tvProductNameuser);
-                                TextView productQuantityView = productView.findViewById(R.id.tvsoluonguser);
-                                TextView productPriceView = productView.findViewById(R.id.tvPriceuser);
-                                ImageView productImageView = productView.findViewById(R.id.ivproductImageuser);
-
-                                productNameView.setText(productName);
-                                productQuantityView.setText("Quantity: " + quantity);
-                                productPriceView.setText("Price: " + price);
-
-                                // Use Picasso to load image
-                                Picasso.get().load(imageUrl).into(productImageView);
-
-                                // Add product view to the products layout
-                                productsLayout.addView(productView);
-                            }
+                            productAdapter.updateProducts(products); // Update adapter with products data
                         } else {
                             Log.e("OrderDetailActivity", "No products found in this order.");
+                        }
+
+                        // Nếu trạng thái là "Delivered", ẩn nút hủy
+                        if ("Delivered".equalsIgnoreCase(status)) {
+                            btnCancelOrder.setVisibility(View.GONE); // Ẩn nút hủy
+                        } else {
+                            btnCancelOrder.setVisibility(View.VISIBLE); // Hiển thị nút hủy nếu trạng thái khác
                         }
                     } else {
                         Log.e("OrderDetailActivity", "Order document not found.");
@@ -135,4 +124,45 @@ public class OrderDetailActivityUser extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.e("OrderDetailActivity", "Error fetching order details.", e));
     }
 
+    private void showCancelOrderDialog(String orderId) {
+        new AlertDialog.Builder(this)
+                .setTitle("Xác nhận hủy đơn hàng")
+                .setMessage("Bạn có chắc chắn muốn xóa đơn hàng này?")
+                .setPositiveButton("Có", (dialog, which) -> cancelOrder(orderId))
+                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void cancelOrder(String orderId) {
+        db.collection("orders")
+                .document(orderId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("OrderDetailActivity", "Order successfully deleted.");
+
+                    // Retrieve the userId here (assuming it's already available, e.g., from Firebase or shared preferences)
+                    String userId;  // Replace this with actual userId value
+                    userId = getIntent().getStringExtra("userId");
+                    if (userId == null) {
+                        Log.e("OrderActivity", "User ID is null");
+                        Toast.makeText(this, "Không thể lấy thông tin người dùng.", Toast.LENGTH_SHORT).show();
+                        return; // Avoid further processing if userId is not available
+                    }
+                    // Create an Intent and pass the userId to the OrderActivity
+                    Intent intent = new Intent(OrderDetailActivityUser.this, OrderActivity.class);
+                    intent.putExtra("userId", userId);  // Pass the userId
+                    startActivity(intent);
+                    finish();
+                })
+                .addOnFailureListener(e -> Log.e("OrderDetailActivity", "Error deleting order.", e));
+    }
+
+
+    private void showCannotCancelDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Không thể hủy đơn hàng")
+                .setMessage("Đơn hàng đang trong trạng thái Transit và không thể hủy.")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
 }

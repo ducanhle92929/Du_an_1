@@ -4,6 +4,8 @@
     android:orientation="vertical"
     android:padding="8dp"
     android:background="@android:color/white"
+
+
     android:layout_marginBottom="8dp">
 
     <!-- Hình ảnh sản phẩm -->

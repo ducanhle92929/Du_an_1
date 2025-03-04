@@ -84,16 +84,16 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:background="@drawable/rounded_group_with_shadow"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="0dp">
 
             <!-- Nút Giảm -->
             <ImageButton
-                android:id="@+id/btnIncrease"
-                android:layout_width="25dp"
+                android:id="@+id/btnDecrease"
+                android:layout_width="20dp"
                 android:layout_height="32dp"
-                android:src="@drawable/item_add"
+                android:src="@drawable/item_remove"
                 android:background="?attr/selectableItemBackground"
-                android:layout_marginEnd="4dp" />
+                android:scaleType="centerInside" />
 
             <TextView
                 android:id="@+id/tvQuantity"
@@ -106,12 +106,13 @@
 
             <!-- Nút Tăng -->
             <ImageButton
-                android:id="@+id/btnDecrease"
-                android:layout_width="20dp"
+                android:id="@+id/btnIncrease"
+                android:layout_width="25dp"
                 android:layout_height="32dp"
-                android:src="@drawable/item_remove"
+                android:src="@drawable/item_add"
                 android:background="?attr/selectableItemBackground"
-                android:scaleType="centerInside" />
+                android:layout_marginEnd="4dp" />
+
         </LinearLayout>
     </LinearLayout>
 

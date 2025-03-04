@@ -24,14 +24,15 @@ public class CaNhan extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ca_nhan);
          LinearLayout txtIn = findViewById(R.id.txtLogin);
+         Button btnLogout = findViewById(R.id.btnLogout);
 
         txtIn.setOnClickListener(v -> {
             startActivity(new Intent(  CaNhan.this, Login.class));
         });
-        Button butLogin = findViewById(R.id.butLogin);
-        butLogin.setOnClickListener(v -> {
-            startActivity(new Intent( CaNhan.this, Login.class));
+        btnLogout.setOnClickListener(v -> {
+            startActivity(new Intent(  CaNhan.this, Login.class));
         });
+
         menuBottom();
     }
     private void menuBottom(){

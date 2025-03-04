@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,12 +23,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
+import foly.anhld.duan1.Modol.Creator;
 import foly.anhld.duan1.Modol.SanPham;
+import foly.anhld.duan1.adater.CreatorAdapter;
 import foly.anhld.duan1.adater.HomeAdapter;
 import foly.anhld.duan1.adater.ImageSliderAdapter;
 
 public class Home extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView,recyclerViewCreators;
+    private CreatorAdapter adapterr;
+    private List<Creator> creatorList;
     private HomeAdapter adapter;
     private List<SanPham> productList;
     private FirebaseFirestore db;
@@ -39,9 +44,39 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+//        categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
+//
+//
+//// Sử dụng GridLayoutManager để hiển thị dạng lưới theo chiều ngang
+//        int numberOfRows = 2; // Số hàng thay vì số cột
+//        GridLayoutManager layoutManager = new GridLayoutManager(this, numberOfRows, GridLayoutManager.HORIZONTAL, false);
+//        categoryRecyclerView.setLayoutManager(layoutManager);
+//
+//// Khởi tạo danh sách sản phẩm và adapter
+//        productList = new ArrayList<>();
+//        adapter = new HomeAdapter(this, productList);
+//        categoryRecyclerView.setAdapter(adapter);
+
+        recyclerViewCreators = findViewById(R.id.recyclerViewCreators);
+        recyclerViewCreators.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        creatorList = new ArrayList<>();
+        creatorList.add(new Creator("Nike", R.drawable.nike));
+        creatorList.add(new Creator("Adidas", R.drawable.adidas));
+        creatorList.add(new Creator("Puma", R.drawable.pumaaa));
+        creatorList.add(new Creator("Converse", R.drawable.conva));
+        creatorList.add(new Creator("New Balance", R.drawable.nb));
+            creatorList.add(new Creator("Vans", R.drawable.vanss));
+
+        creatorList.add(new Creator("Fila", R.drawable.filaa));
+
+        adapterr = new CreatorAdapter(creatorList);
+        recyclerViewCreators.setAdapter(adapterr);
+
 
         // Khởi tạo RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
+//        categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
 
         // Sử dụng GridLayoutManager để hiển thị dạng lưới
         int numberOfColumns = 2; // Số cột trong lưới
@@ -51,6 +86,10 @@ public class Home extends AppCompatActivity {
         productList = new ArrayList<>();
         adapter = new HomeAdapter(this, productList);
         recyclerView.setAdapter(adapter);
+
+
+
+
 
         // Kết nối Firestore
         db = FirebaseFirestore.getInstance();

@@ -72,6 +72,13 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (userId != null) {
+            loadOrders(userId);  // Reload the orders list
+        }
+    }
     private void loadOrders(String userId) {
         Log.d("OrderActivity", "Bắt đầu tải danh sách đơn hàng cho userId: " + userId);  // Log khi bắt đầu tải dữ liệu
         firestore.collection("orders")

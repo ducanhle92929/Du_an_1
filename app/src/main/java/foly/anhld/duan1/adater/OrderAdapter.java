@@ -49,6 +49,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 // Tạo Intent và truyền dữ liệu qua putExtra
                 Intent intent = new Intent(context, OrderDetailActivityUser.class);
                 intent.putExtra("ORDER_ID", order.getOrderId()); // Gửi mã đơn hàng
+                intent.putExtra("userId", order.getUserId());
                 context.startActivity(intent);
             }
         });

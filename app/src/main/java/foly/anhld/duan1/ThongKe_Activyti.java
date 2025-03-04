@@ -49,6 +49,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import foly.anhld.duan1.Modol.Order;
 
@@ -71,35 +72,7 @@ public class ThongKe_Activyti extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-//        BarChart barChart = findViewById(R.id.chart);
-//        barChart.getAxisRight().setDrawGridLines(false);
-//
-//        ArrayList<BarEntry> entries = new ArrayList<>();
-//        entries.add(new BarEntry(0,45f));
-//        entries.add(new BarEntry(1,80f));
-//        entries.add(new BarEntry(2,65f));
-//        entries.add(new BarEntry(3,38f));
-//
-//        YAxis yAxis = barChart.getAxisLeft();
-//        yAxis.setAxisMaximum(0f);
-//        yAxis.setAxisMaximum(100f);
-//        yAxis.setAxisLineWidth(2f);
-//        yAxis.setAxisLineColor(Color.BLACK);
-//        yAxis.setLabelCount(10);
-//
-//        BarDataSet DataSet = new BarDataSet(entries,"Subjects");
-//        DataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-//
-//        BarData barData = new BarData(DataSet);
-//        barChart.setData(barData);
-//
-//        barChart.getDescription().setEnabled(false);
-//        barChart.invalidate();
-//
-//        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xValue));
-//        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-//        barChart.getXAxis().setGranularity(1f);
-//        barChart.getXAxis().setGranularityEnabled(true);
+
         db = FirebaseFirestore.getInstance();
         barChart  = findViewById(R.id.barChart);
         ivBack = findViewById(R.id.ivBack);
@@ -136,6 +109,7 @@ public class ThongKe_Activyti extends AppCompatActivity {
         return true; // Trả về true để menu được hiển thị
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -156,16 +130,16 @@ public class ThongKe_Activyti extends AppCompatActivity {
 
     private void gettkSpBanChay() {
         db.collection("orders")
+                .whereEqualTo("status", "Delivered") // Filter by "Delivered" status
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         QuerySnapshot documentSnapshots = task.getResult();
                         Map<String, Integer> productSales = new HashMap<>();
-                        List<String> productNames = new ArrayList<>(); // Danh sách các sản phẩm
+                        List<String> productNames = new ArrayList<>();
 
-                        // Duyệt qua tất cả đơn hàng
                         for (QueryDocumentSnapshot document : documentSnapshots) {
-                            List<Map<String, Object>> products = (List<Map<String, Object>>) document.get("cartItems"); // Assuming 'cartItems' is the field
+                            List<Map<String, Object>> products = (List<Map<String, Object>>) document.get("cartItems");
                             if (products != null) {
                                 for (Map<String, Object> product : products) {
                                     String productName = (String) product.get("productName");
@@ -175,51 +149,53 @@ public class ThongKe_Activyti extends AppCompatActivity {
                                         productSales.put(productName, productSales.get(productName) + quantity.intValue());
                                     } else {
                                         productSales.put(productName, quantity.intValue());
-                                        productNames.add(productName); // Thêm sản phẩm vào danh sách
+                                        productNames.add(productName); // Add product to the list
                                     }
                                 }
                             }
                         }
 
-                        // Tạo dữ liệu cho biểu đồ
+                        // Prepare data for the chart
                         List<BarEntry> entries = new ArrayList<>();
                         int index = 0;
                         for (Map.Entry<String, Integer> entry : productSales.entrySet()) {
                             entries.add(new BarEntry(index++, entry.getValue()));
                         }
 
-                        // Tạo BarDataSet từ các dữ liệu đã thu thập
-                        BarDataSet dataSet = new BarDataSet(entries, "Sản phẩm bán chạy");
+                        // Create BarDataSet from data
+                        BarDataSet dataSet = new BarDataSet(entries, "Top Selling Products");
                         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
-                        // Tạo BarData từ BarDataSet
+                        // Create BarData from BarDataSet
                         BarData data = new BarData(dataSet);
 
-                        // Cập nhật nhãn trục X với tên sản phẩm
+                        // Update X-axis labels with product names
                         XAxis xAxis = barChart.getXAxis();
-                        xAxis.setValueFormatter(new IndexAxisValueFormatter(productNames)); // Cập nhật trục X
+                        xAxis.setValueFormatter(new IndexAxisValueFormatter(productNames)); // Update X-axis with product names
                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                         xAxis.setGranularity(1f);
                         xAxis.setGranularityEnabled(true);
 
-                        // Cập nhật dữ liệu vào biểu đồ
+                        // Set the data into the chart
                         barChart.setData(data);
-                        barChart.invalidate();  // Refresh biểu đồ
+                        barChart.invalidate();  // Refresh the chart
                     } else {
-                        Toast.makeText(ThongKe_Activyti.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ThongKe_Activyti.this, "Failed to retrieve data", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
+
     // Thống kê doanh thu theo ngày
     private void getOrdersByDate() {
         db.collection("orders")
+                .whereEqualTo("status", "Delivered") // Filter by "Delivered" status
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         QuerySnapshot documentSnapshots = task.getResult();
                         Map<String, Double> dailySales = new HashMap<>();
-                        List<String> dates = new ArrayList<>(); // Danh sách các ngày
+                        List<String> dates = new ArrayList<>(); // List of dates
 
                         for (QueryDocumentSnapshot document : documentSnapshots) {
                             String orderDate = document.getString("orderDate");
@@ -229,36 +205,36 @@ public class ThongKe_Activyti extends AppCompatActivity {
                                 dailySales.put(orderDate, dailySales.get(orderDate) + totalPrice);
                             } else {
                                 dailySales.put(orderDate, totalPrice);
-                                dates.add(orderDate);  // Thêm ngày vào danh sách
+                                dates.add(orderDate);  // Add date to the list
                             }
                         }
 
-                        // Tạo dữ liệu cho biểu đồ
+                        // Prepare data for the chart
                         List<BarEntry> entries = new ArrayList<>();
                         int index = 0;
                         for (Map.Entry<String, Double> entry : dailySales.entrySet()) {
                             entries.add(new BarEntry(index++, entry.getValue().floatValue()));
                         }
 
-                        // Tạo BarDataSet từ dữ liệu thu thập
-                        BarDataSet dataSet = new BarDataSet(entries, "Doanh thu theo ngày");
+                        // Create BarDataSet from collected data
+                        BarDataSet dataSet = new BarDataSet(entries, "Revenue by Date");
                         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
-                        // Tạo BarData từ BarDataSet
+                        // Create BarData from BarDataSet
                         BarData data = new BarData(dataSet);
 
-                        // Cập nhật nhãn trục X với ngày thực tế
+                        // Update X-axis labels with the actual dates
                         XAxis xAxis = barChart.getXAxis();
-                        xAxis.setValueFormatter(new IndexAxisValueFormatter(dates)); // Cập nhật trục X
+                        xAxis.setValueFormatter(new IndexAxisValueFormatter(dates)); // Update X-axis
                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                         xAxis.setGranularity(1f);
                         xAxis.setGranularityEnabled(true);
 
-                        // Cập nhật dữ liệu vào biểu đồ
+                        // Set the data into the chart
                         barChart.setData(data);
-                        barChart.invalidate();  // Refresh biểu đồ
+                        barChart.invalidate();  // Refresh the chart
                     } else {
-                        Toast.makeText(ThongKe_Activyti.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ThongKe_Activyti.this, "Failed to retrieve data", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -266,6 +242,7 @@ public class ThongKe_Activyti extends AppCompatActivity {
     // Thống kê doanh thu theo tháng
     private void getTkThang() {
         db.collection("orders")
+                .whereEqualTo("status", "Delivered") // Filter by "Delivered" status
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -273,67 +250,65 @@ public class ThongKe_Activyti extends AppCompatActivity {
                         Map<String, Double> monthlySales = new HashMap<>();
                         List<String> months = new ArrayList<>();
 
-                        // Duyệt qua tất cả đơn hàng
                         for (QueryDocumentSnapshot document : documentSnapshots) {
                             String orderDate = document.getString("orderDate");
                             Double totalPrice = document.getDouble("totalPrice");
 
-                            String month = getMonthFromDate(orderDate);  // Lấy tháng từ ngày
+                            String monthYear = getMonthYearFromDate(orderDate);  // Get month and year from date
 
-                            // Cộng tổng doanh thu theo tháng
-                            if (monthlySales.containsKey(month)) {
-                                monthlySales.put(month, monthlySales.get(month) + totalPrice);
+                            if (monthlySales.containsKey(monthYear)) {
+                                monthlySales.put(monthYear, monthlySales.get(monthYear) + totalPrice);
                             } else {
-                                monthlySales.put(month, totalPrice);
-                                months.add(month);  // Thêm tháng vào danh sách
+                                monthlySales.put(monthYear, totalPrice);
+                                months.add(monthYear);  // Add monthYear to the list
                             }
                         }
 
-                        // Tạo dữ liệu cho biểu đồ
+                        // Prepare data for the chart
                         List<BarEntry> entries = new ArrayList<>();
-                        for (int i = 1; i <= 12; i++) {
-                            String month = String.format("%02d", i);
-                            if (monthlySales.containsKey(month)) {
-                                entries.add(new BarEntry(i - 1, monthlySales.get(month).floatValue()));
-                            } else {
-                                entries.add(new BarEntry(i - 1, 0f)); // Nếu không có doanh thu cho tháng này
-                            }
+                        int index = 0;
+                        for (Map.Entry<String, Double> entry : monthlySales.entrySet()) {
+                            entries.add(new BarEntry(index++, entry.getValue().floatValue()));
                         }
 
-                        // Tạo BarDataSet từ dữ liệu
-                        BarDataSet dataSet = new BarDataSet(entries, "Doanh thu theo tháng");
+                        // Create BarDataSet from data
+                        BarDataSet dataSet = new BarDataSet(entries, "Revenue by Month");
                         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
-                        // Tạo BarData từ BarDataSet
+                        // Create BarData from BarDataSet
                         BarData data = new BarData(dataSet);
 
-                        // Cập nhật nhãn trục X với tên các tháng
+                        // Update X-axis labels with month names
                         XAxis xAxis = barChart.getXAxis();
-                        xAxis.setValueFormatter(new IndexAxisValueFormatter(getMonths())); // Cập nhật trục X với các tháng
+                        xAxis.setValueFormatter(new IndexAxisValueFormatter(months)); // Update X-axis with months
                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                         xAxis.setGranularity(1f);
                         xAxis.setGranularityEnabled(true);
 
-                        // Cập nhật dữ liệu vào biểu đồ
+                        // Set the data into the chart
                         barChart.setData(data);
-                        barChart.invalidate();  // Refresh biểu đồ
+                        barChart.invalidate();  // Refresh the chart
                     } else {
-                        Toast.makeText(ThongKe_Activyti.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ThongKe_Activyti.this, "Failed to retrieve data", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    // Phương thức giúp lấy tháng từ ngày
-    private String getMonthFromDate(String date) {
+    // Phương thức giúp lấy tháng và năm từ ngày
+    private String getMonthYearFromDate(String date) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); // Use ISO 8601 format for date
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // Ensure the date is interpreted in UTC
             Date d = sdf.parse(date);
+
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(d);
-            return String.format("%02d", calendar.get(Calendar.MONTH) + 1);
+            int month = calendar.get(Calendar.MONTH) + 1; // Extract month
+            int year = calendar.get(Calendar.YEAR); // Extract year
+            return String.format("%04d-%02d", year, month); // Format as YYYY-MM
         } catch (ParseException e) {
             e.printStackTrace();
-            return "00"; // Trường hợp lỗi
+            return "0000-00"; // Default return value in case of error
         }
     }
 

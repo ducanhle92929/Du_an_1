@@ -19,9 +19,8 @@ public class Login extends AppCompatActivity {
     private TextView txtLogin, txtUp, txtForgot;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private final String SELLER_EMAIL = "ducanhle538@gmail.com";
 
-    // Email cố định của người bán datvvph51665@gmail.com
-    private final String SELLER_EMAIL = "datvvph51665@gmail.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
